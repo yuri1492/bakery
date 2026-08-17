@@ -111,6 +111,7 @@ public class GameScene extends BaseScene {
     private Random random = new Random();
     private enum SCENE{startDay,startSales,endDay,doPart}
     private SCENE scene;
+    private PauseTransition pause;
 
     public GameScene(Stage stage,GameData gamedata) {
         DataLoader loader = new DataLoader();
@@ -270,7 +271,7 @@ public class GameScene extends BaseScene {
         bubblePane.setMaxSize(280, 170);
         bubblePane.setMouseTransparent(true);
 
-        bubbleMessage = new Label("パンが足りませんよ！まずは作りましょう♪");
+        bubbleMessage = new Label("");
         bubbleMessage.setPrefWidth(230);
         bubbleMessage.setPrefHeight(60);
         bubbleMessage.setLayoutX(25);
@@ -285,7 +286,7 @@ public class GameScene extends BaseScene {
 
         getChildren().add(bubblePane);
         bubblePane.setVisible(false);
-        PauseTransition pause = new PauseTransition(Duration.seconds(2.2));
+        pause = new PauseTransition(Duration.seconds(2.2));
         pause.setOnFinished(event -> {
             bubblePane.setVisible(false);
             girlClickAble = true;
@@ -387,11 +388,11 @@ public class GameScene extends BaseScene {
                 Label start = new Label(day + "日目の営業を開始します");
                 start.getStyleClass().add("largeMenuLabel");
                 centerContent.getChildren().add(start);
-                PauseTransition pause = new PauseTransition(Duration.seconds(1));
-                pause.setOnFinished(event -> {
+                PauseTransition pauseSales = new PauseTransition(Duration.seconds(1));
+                pauseSales.setOnFinished(event -> {
                     startSales(stage,gamedata);
                 });
-                pause.play();
+                pauseSales.play();
             }
         });
         doPartButton.setOnAction(e -> {
@@ -545,14 +546,14 @@ public class GameScene extends BaseScene {
         timeline.play();
         Label end = new Label("営業が終了しました");
         end.getStyleClass().add("largeMenuLabel");
-        PauseTransition pause = new PauseTransition(Duration.seconds(1));
-        pause.setOnFinished(e -> {
+        PauseTransition pauseSales = new PauseTransition(Duration.seconds(1));
+        pauseSales.setOnFinished(e -> {
             endDay(stage, gamedata);
         });
         timeline.setOnFinished(e -> {
             displayClear();
             centerContent.getChildren().add(end);
-            pause.play();
+            pauseSales.play();
         });
     }
 
@@ -1506,6 +1507,18 @@ public class GameScene extends BaseScene {
             addLog(log);
         }
         refreshLog();
+
+        if(!logList.isEmpty()){
+            if (!girlClickAble) {
+                pause.stop();
+                bubblePane.setVisible(false);
+                girlClickAble = true;
+            }
+            girlClickAble = false;
+            bubblePane.setVisible(true);
+            bubbleMessage.setText("おめでとうございます！\n店舗レベルが" + shop.getLevel() + "になりました！");
+            pause.playFromStart();
+        }
     }
 
     public void addPopularity(int num){
@@ -1625,8 +1638,8 @@ public class GameScene extends BaseScene {
             new KeyFrame(Duration.seconds(3),
                 new KeyValue(progressBar.progressProperty(), 1))
         );
-        PauseTransition pause = new PauseTransition(Duration.seconds(1));
-        pause.setOnFinished(event -> {
+        PauseTransition pauseSales = new PauseTransition(Duration.seconds(1));
+        pauseSales.setOnFinished(event -> {
             nextDay(stage, gamedata);
         });
         okButton.setOnAction(e -> {
