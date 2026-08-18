@@ -9,8 +9,8 @@ SalesHistory.class
 RecipeIngredient.class
 BreadType.class
 IngredientData.class
-DataLoader$1.class
 Bread.class
+DataLoader$1.class
 GameScene.class
 Recipe.class
 Config.class
@@ -20,5 +20,5 @@ DataLoader.class
 GameData.class
 Shop.class
 EndingScene.class
-PartTime.class
 Mode.class
+PartTime.class
