@@ -2,6 +2,7 @@ TitleScene.class
 LevelUpCondition.class
 Ingredient.class
 Inventory.class
+GameScene$SCENE.class
 Main.class
 IngredientType.class
 SalesHistory.class

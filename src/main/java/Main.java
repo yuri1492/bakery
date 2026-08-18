@@ -1,11 +1,13 @@
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 public class Main extends Application {
 
     @Override
     public void start(Stage stage) {
+        Font.loadFont(getClass().getResourceAsStream("/fonts/NotoSansCJKjp-VF.ttf"),14);
 
         BaseScene root = new TitleScene(stage);
 
