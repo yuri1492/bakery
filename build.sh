@@ -5,12 +5,27 @@ set -e
 echo "=== Maven build ==="
 mvn clean package
 
+echo "=== Create directories ==="
+mkdir -p package-input
+mkdir -p javafx-modules
+
 echo "=== Copy JAR ==="
-cp target/my-app-1.0.0.jar app/my-app-1.0.0.jar
 cp target/my-app-1.0.0.jar package-input/my-app-1.0.0.jar
 
+echo "=== Copy JavaFX modules ==="
+
+JAVAFX_VERSION=21.0.7
+JAVAFX_REPO="$HOME/.m2/repository/org/openjfx"
+
+cp "$JAVAFX_REPO/javafx-base/$JAVAFX_VERSION/javafx-base-$JAVAFX_VERSION-linux.jar" javafx-modules/
+cp "$JAVAFX_REPO/javafx-controls/$JAVAFX_VERSION/javafx-controls-$JAVAFX_VERSION-linux.jar" javafx-modules/
+cp "$JAVAFX_REPO/javafx-fxml/$JAVAFX_VERSION/javafx-fxml-$JAVAFX_VERSION-linux.jar" javafx-modules/
+cp "$JAVAFX_REPO/javafx-graphics/$JAVAFX_VERSION/javafx-graphics-$JAVAFX_VERSION-linux.jar" javafx-modules/
+
+echo "=== Remove old application ==="
+rm -rf dist
+
 echo "=== Create application ==="
-rm -rf dist/BakeryGame
 
 jpackage \
   --type app-image \
