@@ -1,0 +1,36 @@
+==================================================
+Third-Party Software Notices
+==================================================
+
+This software includes third-party software and fonts.
+
+--------------------------------------------------
+Noto Sans CJK
+--------------------------------------------------
+
+Copyright 2018 The Noto Project Authors
+
+Licensed under the SIL Open Font License, Version 1.1.
+
+The full license text is included in this distribution.
+
+--------------------------------------------------
+Jackson
+--------------------------------------------------
+
+Copyright 2008-present FasterXML, LLC
+
+Licensed under the Apache License, Version 2.0.
+
+The full license text is included in this distribution.
+
+--------------------------------------------------
+OpenJFX (JavaFX)
+--------------------------------------------------
+
+Copyright (c) OpenJFX contributors
+
+Licensed under the GNU General Public License,
+version 2, with the Classpath Exception.
+
+The full license text is included in this distribution.

@@ -21,6 +21,7 @@
     -fx-background-color: rgba(255, 245, 220, 0.8);
     -fx-background-radius: 20px;
     -fx-padding: 15px 30px;
+    -fx-effect: dropshadow(gaussian,rgba(53, 53, 53, 0.35),8,0.3,2,2);
 }
 
 .startButton{
