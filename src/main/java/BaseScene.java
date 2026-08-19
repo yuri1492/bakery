@@ -9,7 +9,7 @@ public class BaseScene extends StackPane {
     
     public BaseScene() {
         Image image = new Image(
-            getClass().getResource("/images/background.jpg").toExternalForm()
+            getClass().getResource("/images/background.png").toExternalForm()
         );
 
         ImageView bg = new ImageView(image);
