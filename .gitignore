@@ -1,0 +1,4 @@
+target/
+dist/
+package-input/
+javafx-modules/
