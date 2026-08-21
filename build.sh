@@ -11,6 +11,9 @@ mkdir -p javafx-modules
 
 echo "=== Copy JAR ==="
 cp target/my-app-1.0.0.jar package-input/my-app-1.0.0.jar
+cp ~/.m2/repository/com/fasterxml/jackson/core/jackson-core/2.18.2/jackson-core-2.18.2.jar package-input/
+cp ~/.m2/repository/com/fasterxml/jackson/core/jackson-databind/2.18.2/jackson-databind-2.18.2.jar package-input/
+cp ~/.m2/repository/com/fasterxml/jackson/core/jackson-annotations/2.18.2/jackson-annotations-2.18.2.jar package-input/
 
 echo "=== Copy JavaFX modules ==="
 

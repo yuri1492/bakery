@@ -16,11 +16,11 @@ import javafx.util.Duration;
 public class TitleScene extends BaseScene {
     private GameData gamedata;
     TitleScene(Stage stage){
-        GameData gamedata = new GameData();
-        showTitle(stage,gamedata);
+        gamedata = new GameData();
+        showTitle(stage);
     }
 
-    private void showTitle(Stage stage,GameData gamedata){
+    private void showTitle(Stage stage){
         AnchorPane pane = new AnchorPane();
 
         Label title = new Label("パン屋物語");
@@ -62,7 +62,7 @@ public class TitleScene extends BaseScene {
         startButton.setOnAction(e -> {
             getChildren().removeAll(title,subtitle);
             layout.getChildren().clear();
-            inputName(stage,gamedata);
+            inputName(stage);
         });
         pane.getChildren().add(startButton);
         getChildren().addAll(title,subtitle);
@@ -70,7 +70,7 @@ public class TitleScene extends BaseScene {
         layout.getChildren().addAll(pane);
     }
 
-    private void inputName(Stage stage,GameData gamedata){
+    private void inputName(Stage stage){
         StackPane content = new StackPane();
         content.getStyleClass().add("nameBackGround");
         content.setPrefSize(480,350);

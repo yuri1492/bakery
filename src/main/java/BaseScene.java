@@ -9,7 +9,7 @@ public class BaseScene extends StackPane {
     
     public BaseScene() {
         Image image = new Image(
-            getClass().getResource("/images/background.png").toExternalForm()
+            getClass().getResource("/images/background4.png").toExternalForm()
         );
 
         ImageView bg = new ImageView(image);
@@ -20,7 +20,7 @@ public class BaseScene extends StackPane {
         layout.setMaxWidth(Config.WIDTH);
 
         StackPane.setAlignment(layout, Pos.TOP_LEFT);
-
+        StackPane.setAlignment(bg, Pos.TOP_LEFT);
         getChildren().addAll(bg,layout);
     }
 

@@ -39,6 +39,7 @@ public class GameScene extends BaseScene {
     private List<BreadType> breadList;
     private int BreadMaxLength;
     private int IngredientMaxLength;
+    private GameData gamedata;
 
     private Shop shop;
     private final int closeBread = 0;
@@ -137,13 +138,13 @@ public class GameScene extends BaseScene {
         for (Bread bread : breadMap.values()) {
             BreadMaxLength = Math.max(BreadMaxLength , bread.getName().length());
         }
+        this.gamedata = gamedata;
         shop = new Shop(gamedata.getName(),ingredients,breadMap);
         breadNum = new LinkedHashMap<>();
-        
-        startGame(stage, gamedata);
+        startGame(stage);
     }
 
-    public void startGame(Stage stage,GameData gamedata){
+    public void startGame(Stage stage){
         Image girl = new Image(
             getClass().getResource("/images/girl2.png").toExternalForm()
         );
@@ -316,10 +317,10 @@ public class GameScene extends BaseScene {
             girlView.setCursor(Cursor.DEFAULT);
         });
 
-        startDay(stage, gamedata);
+        startDay(stage);
     }
 
-    public void startDay(Stage stage,GameData gamedata){
+    public void startDay(Stage stage){
         // shop.useMoney(2000);
         // shop.getSalesHistory().addTodaySales(5000000);
         // checkLevel();
@@ -390,18 +391,18 @@ public class GameScene extends BaseScene {
                 centerContent.getChildren().add(start);
                 PauseTransition pauseSales = new PauseTransition(Duration.seconds(1));
                 pauseSales.setOnFinished(event -> {
-                    startSales(stage,gamedata);
+                    startSales(stage);
                 });
                 pauseSales.play();
             }
         });
         doPartButton.setOnAction(e -> {
             switchMenuLabel(true);
-            doPartTime(stage,gamedata);
+            doPartTime(stage);
         });
     }
 
-    public void startSales(Stage stage,GameData gamedata){
+    public void startSales(Stage stage){
         displayClear();
         scene = SCENE.startSales;
 
@@ -548,7 +549,7 @@ public class GameScene extends BaseScene {
         end.getStyleClass().add("largeMenuLabel");
         PauseTransition pauseSales = new PauseTransition(Duration.seconds(1));
         pauseSales.setOnFinished(e -> {
-            endDay(stage, gamedata);
+            endDay(stage);
         });
         timeline.setOnFinished(e -> {
             displayClear();
@@ -557,7 +558,7 @@ public class GameScene extends BaseScene {
         });
     }
 
-    public void endDay(Stage stage,GameData gamedata){
+    public void endDay(Stage stage){
         displayClear();
         scene = SCENE.endDay;
         haveMoney.setText(String.format("所持金：%,7dG",shop.getMoney()));
@@ -701,7 +702,7 @@ public class GameScene extends BaseScene {
         }
 
         refreshLog();
-        showResultBread(stage, gamedata);
+        showResultBread(stage);
     }
 
     public void makeBread(){
@@ -1362,7 +1363,7 @@ public class GameScene extends BaseScene {
         }
     }
 
-    public void showResultBread(Stage stage,GameData gamedata){
+    public void showResultBread(Stage stage){
         displayClear();
         HBox contentBox = new HBox(100);
         resultBox = new HBox(2);
@@ -1384,7 +1385,7 @@ public class GameScene extends BaseScene {
         expiredStockBox.getChildren().addAll(expiredStockNameBox,expiredStockNumBox,expiredStockUnitBox);
         Button nextButton = new Button("次へ ▶");
         nextButton.setOnAction(e -> {
-            showResultSales(stage,gamedata);
+            showResultSales(stage);
         });
         nextButton.getStyleClass().add("decideButton");
         centerContent.setAlignment(nextButton,Pos.BOTTOM_RIGHT);
@@ -1397,7 +1398,7 @@ public class GameScene extends BaseScene {
         contentBox.setTranslateX(40);
     }
 
-    public void showResultSales(Stage stage,GameData gamedata){
+    public void showResultSales(Stage stage){
         displayClear();
         Label salesLabel = new Label("今日の売上");
         salesLabel.getStyleClass().add("salesTopLabel");
@@ -1448,15 +1449,15 @@ public class GameScene extends BaseScene {
         }
         Button nextButton = new Button("次の日へ ▶");
         nextButton.setOnAction(e -> {
-            nextDay(stage,gamedata);
+            nextDay(stage);
         });
         Button backButton = new Button("◀戻る");
         backButton.setOnAction(e -> {
-            showResultBread(stage,gamedata);
+            showResultBread(stage);
         });
         Button finishButton = new Button("＜終わる＞");
         finishButton.setOnAction(e -> {
-            ending(stage,gamedata);
+            ending(stage);
         });
         nextButton.getStyleClass().add("decideButton");
         backButton.getStyleClass().add("decideButton");
@@ -1588,7 +1589,7 @@ public class GameScene extends BaseScene {
         doPartButton.setVisible(condition);
     }
     
-    public void doPartTime(Stage stage,GameData gamedata){
+    public void doPartTime(Stage stage){
         scene = SCENE.doPart;
         displayClear();
         Label titleLabel = new Label("アルバイト");
@@ -1640,7 +1641,7 @@ public class GameScene extends BaseScene {
         );
         PauseTransition pauseSales = new PauseTransition(Duration.seconds(1));
         pauseSales.setOnFinished(event -> {
-            nextDay(stage, gamedata);
+            nextDay(stage);
         });
         okButton.setOnAction(e -> {
             popupPane.getChildren().clear();
@@ -1664,22 +1665,22 @@ public class GameScene extends BaseScene {
         });
         nextDay.setOnAction(e -> {
             popupPane.setVisible(false);
-            nextDay(stage, gamedata);
+            nextDay(stage);
         });
     }
 
-    public void nextDay(Stage stage,GameData gamedata){
+    public void nextDay(Stage stage){
         displayClear();
         if(gamedata.getMode() == Mode.NORMAL){
             if(day == 30){
-                ending(stage,gamedata);
+                ending(stage);
             }
         }
         day++;
-        startDay(stage, gamedata);
+        startDay(stage);
     }
 
-    public void ending(Stage stage,GameData gamedata){
+    public void ending(Stage stage){
         getChildren().remove(girlView);
         layout.getChildren().clear();
         setContent(new EndingScene(stage,gamedata,shop,day,breadMap));
